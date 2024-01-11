@@ -5,7 +5,7 @@ on:
     # Only build on main or master branch
     branches: [main, master]
   # Or when triggered manually
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 name: Build and deploy wasm R package repository
 
@@ -20,3 +20,5 @@ jobs:
       # For publishing to pages environment
       pages: write
       id-token: write
+    with:
+      packages: "."
