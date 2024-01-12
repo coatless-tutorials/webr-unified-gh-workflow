@@ -13,8 +13,6 @@ jobs:
   # Reads `./packages` for package references to put
   # into a CRAN-like repository hosted on GitHub pages
   deploy-cran-repo:
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     uses: r-wasm/actions/.github/workflows/deploy-cran-repo.yml@v1
     permissions:
       # To download GitHub Packages within action
