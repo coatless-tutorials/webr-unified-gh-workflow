@@ -10,7 +10,7 @@ Authors@R: c(
             )
 Description: Package to test out generating Web Assembly binaries for R packages
     using r-wasm GitHub Actions.
-URL: https://github.com/coatless-tutorials/webr-github-action-wasm-binaries
+URL: https://github.com/coatless-tutorials/webr-github-action-wasm-binaries, https://tutorials.thecoatlessprofessor.com/webr-github-action-wasm-binaries/
 BugReports: https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/issues
 Depends: R (>= 4.3.0)
 License: GPL (>= 2)
