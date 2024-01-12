@@ -84,6 +84,21 @@ Otherwise, you can specify it each time:
 webr::install("pkgname", "https://gh-username.github.io/repo-name")
 ```
 
+:::{.callout-important}
+Please make sure the repository's [GitHub Pages website is available over `HTTPS`](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https#enforcing-https-for-your-github-pages-site) not `HTTP` (notice the lack of an `s`).
+You can verify this option was selected by:
+
+1. Going to the repository's **Settings** page
+2. Selecting **Pages** under **Code and automation**
+3. Checking the **Enforce HTTPS** button.
+
+Otherwise, you will receive the error message of: 
+
+```
+Warning: unable to access index for repository http://gh-username.github.io/repo-name/bin/emscripten/contrib/4.3
+```
+:::
+
 ## Verify
 
 Go to the [webR REPL Editor](https://webr.r-wasm.org/v0.2.2/) (pinned to v0.2.2)
