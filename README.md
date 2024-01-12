@@ -1,5 +1,10 @@
 # webr-github-action-wasm-binaries
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/R-CMD-check.yaml)
+[![webr-build-binary](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/deploy-cran-repo.yml/badge.svg)](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/deploy-cran-repo.yml)
+<!-- badges: end -->
+
 Example GitHub Actions workflow with an R package that generates developmental webR binaries
 
 ## Steps
