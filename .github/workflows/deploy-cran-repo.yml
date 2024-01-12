@@ -7,18 +7,25 @@ on:
   # Or when triggered manually
   workflow_dispatch: {}
 
-name: Build and deploy wasm R package repository
+name: Build WASM R package and Repo
 
 jobs:
-  # Reads `./packages` for package references to put
-  # into a CRAN-like repository hosted on GitHub pages
   deploy-cran-repo:
-    uses: r-wasm/actions/.github/workflows/deploy-cran-repo.yml@v1
-    permissions:
-      # To download GitHub Packages within action
-      repository-projects: read
-      # For publishing to pages environment
-      pages: write
-      id-token: write
-    with:
-      packages: "."
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build WASM R packages
+        uses: r-wasm/actions/build-rwasm@v1
+        with:
+          packages: "."
+          repo-path: "_site"
+
+      - name: Deploy wasm R packages to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          clean: false
+          branch: gh-pages
+          folder: _site
