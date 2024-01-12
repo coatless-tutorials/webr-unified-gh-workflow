@@ -11,6 +11,13 @@ name: Build WASM R package and Repo
 
 jobs:
   deploy-cran-repo:
+    # Only restrict concurrency for non-PR jobs
+    concurrency:
+      group: r-wasm-${{ github.event_name != 'pull_request' || github.run_id }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
