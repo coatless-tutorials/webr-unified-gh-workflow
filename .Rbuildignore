@@ -4,3 +4,7 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^README.qmd$
+
+^webr-github-action-wasm-binaries\.Rproj$
+^webr-github-action-wasm-binaries\.code-workspace$
