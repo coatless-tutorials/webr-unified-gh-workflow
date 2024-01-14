@@ -31,12 +31,14 @@ jobs:
           repo-path: "_site"
       
       # Upload the CRAN repository for use in the next step
+      # Make sure to set a retention day to avoid running into a cap
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: rwasmrepo
           path: |
             _site
+          retention-days: 1
 
   pkgdown:
     runs-on: ubuntu-latest
@@ -87,8 +89,12 @@ jobs:
           path: _site
       
       # Upload a tar file that will work with GitHub Pages
+      # Make sure to set a retention day to avoid running into a cap
+      # This artifact shouldn't be required after deployment onto pages was a success.
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
+        with: 
+          retention-days: 1
       
       # Use an Action deploy to push the artifact onto GitHub Pages
       # This requires the `Action` tab being structured to allow for deployment
