@@ -38,6 +38,8 @@ jobs:
   pkgdown:
     needs: rwasmbuild
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     # Only restrict concurrency for non-PR jobs
     concurrency:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
