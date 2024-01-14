@@ -1,5 +1,5 @@
 
-# Unified GH Action for {pkgdown} and R WASM Package Binaries
+# Unified GH Action for webR/R WASM Package Binaries and {pkgdown} Deployment
 
 <!-- badges: start -->
 
@@ -7,18 +7,18 @@
 [![webr-build-binary](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/deploy-cran-repo.yml/badge.svg)](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/deploy-cran-repo.yml)
 <!-- badges: end -->
 
-Example GitHub Action workflow to generate developmental webR/R WASM
-Package binaries
+Example GitHub Action workflow combining creation of developmental
+webR/R WASM Package binaries and `{pkgdown}` websites.
 
 # Overview
 
 Interested in having your R package automatically be built for
 [webR](https://docs.r-wasm.org/webr/latest/) through a [GitHub
-Action](https://github.com/features/actions)? If so, this is the
-repository for you! Here’s a summary of what you can find in the
-repository:
+Action](https://github.com/features/actions) alongside of a pkgdown
+website? If so, this is the repository for you! Here’s a summary of what
+you can find in the repository:
 
-- [`.github/workflows/deploy-cran-repo.yml`](.github/workflows/deploy-cran-repo.yml):
+- [`.github/workflows/webr-pkgdown-build-and-deploy.yml`](.github/workflows/webr-pkgdown-build-and-deploy.yml):
   Modified version of [`r-wasm/actions`’
   deploy-cran-repo.yml](https://github.com/r-wasm/actions/blob/d21bf7da50e539df543bbee973087ec585deaba6/examples/deploy-cran-repo.yml)
 - [`DESCRIPTION`](DESCRIPTION): Standard description information for an
@@ -26,15 +26,14 @@ repository:
 - [`R/in-webr.R`](R/in-webr.R): Check to see if we’re inside of webR or
   not.
 
-You can view the pushed webR package binary parts by looking at the
-[`gh-pages`](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/tree/gh-pages)
-branch of the repository. Specifically, we can see binary package data
-[`bin/emscripten/contrib/4.3`](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/tree/gh-pages/bin/emscripten/contrib/4.3)
-and the package information in
-[`src/contrib`](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/tree/gh-pages/src/contrib).
-You can read more about package repositories that are CRAN-like in the
-[R Administration: 6.6 Setting up a package
-repository](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Setting-up-a-package-repository).
+## Deployment
+
+This approach moves away from tracking website deployments in a
+`gh-pages` to generating artifacts with GitHub Actions and, then,
+deploying them onto GitHub Pages. As a result, the size of the
+repository should not grow large with the addition of a webR/R WASM
+Package binary. Though, this means that changes associated with new
+`{pkgdown}` deployments are no longer tracked in the `gh-pages` branch.
 
 ## Setup
 
@@ -50,7 +49,7 @@ usethis::use_github_pages()
 
 # Obtain the modified version of the rwasm repo setup
 usethis::use_github_action(
-  "https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/blob/main/.github/workflows/deploy-cran-repo.yml"
+  "https://github.com/coatless-tutorials/webr-unified-gh-workflow/blob/main/.github/workflows/webr-pkgdown-build-and-deploy.yml"
 )
 ```
 
@@ -118,7 +117,7 @@ v0.2.2) and run the following:
 # Install the binary from a repository
 webr::install(
   "demorwasmbinary", 
-  repos = "https://tutorials.thecoatlessprofessor.com/webr-github-action-wasm-binaries/"
+  repos = "https://tutorials.thecoatlessprofessor.com/webr-unified-gh-workflow/"
 )
 # Check to see if the function works
 demorwasmbinary::in_webr()
