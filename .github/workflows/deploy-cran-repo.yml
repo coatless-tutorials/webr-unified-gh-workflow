@@ -7,7 +7,7 @@ on:
   # Or when triggered manually
   workflow_dispatch: {}
 
-name: Build WASM R package, Repo, and pkgdown website to deploy onto GH Pages
+name: R WASM & {pkgdown} deploy
 
 jobs:
   rwasmbuild:
@@ -22,12 +22,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        
+      # Build the local R package and structure the CRAN repository
       - name: Build WASM R packages
         uses: r-wasm/actions/build-rwasm@v1
         with:
           packages: "."
           repo-path: "_site"
+      
+      # Upload the CRAN repository for use in the next step
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
@@ -36,8 +39,10 @@ jobs:
             _site
 
   pkgdown:
-    needs: rwasmbuild
     runs-on: ubuntu-latest
+    # Add a dependency on the prior job completing
+    needs: rwasmbuild
+    # Required for the gh-pages deployment action
     environment:
       name: github-pages
     # Only restrict concurrency for non-PR jobs
@@ -52,6 +57,7 @@ jobs:
       pages: write
       id-token: write
     steps:
+      # Usual steps for generating a pkgdown website
       - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -64,19 +70,29 @@ jobs:
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
-
+      # Change the build directory from `docs` to `_site`
+      # For parity with where the R WASM package repository is setup
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE, dest_dir = "_site")
         shell: Rscript {0}
+        
+      # New material ---
       
+      # Download the built R WASM CRAN repository from the prior step.
+      # Extract it into the `_site` directory
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
           name: rwasmrepo
           path: _site
-          
+      
+      # Upload a tar file that will work with GitHub Pages
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
+      
+      # Use an Action deploy to push the artifact onto GitHub Pages
+      # This requires the `Action` tab being structured to allow for deployment
+      # instead of using `docs/` or the `gh-pages` branch of the repository
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
