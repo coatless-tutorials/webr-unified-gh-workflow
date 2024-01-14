@@ -3,7 +3,7 @@ format: gfm
 engine: knitr
 ---
 
-# webr-github-action-wasm-binaries
+# Unified GH Action for {pkgdown} and R WASM Package Binaries
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries/actions/workflows/R-CMD-check.yaml)

@@ -1,5 +1,5 @@
 
-# webr-github-action-wasm-binaries
+# Unified GH Action for {pkgdown} and R WASM Package Binaries
 
 <!-- badges: start -->
 
