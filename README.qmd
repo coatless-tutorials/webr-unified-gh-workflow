@@ -12,6 +12,12 @@ engine: knitr
 
 Example GitHub Action workflow combining creation of developmental webR/R WASM Package binaries and `{pkgdown}` websites.
 
+This repository is part of a series of repositories exploring the topic.
+
+- [Org-focused webR/WASM Package Repository without a `{pkgdown}` website (Preferred)](https://github.com/coatless-tutorials/webr-org-gh-action)
+- **[Unified GitHub Action Deployment using artifacts of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-unified-gh-workflow) [This repository]**
+- [Separate GitHub Action Deployment onto `gh-pages` branch of R WASM Package binaries and {pkgdown} website](https://github.com/coatless-tutorials/webr-github-action-wasm-binaries) 
+
 # Overview
 
 Interested in having your R package automatically be built for [webR](https://docs.r-wasm.org/webr/latest/) through
