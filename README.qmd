@@ -65,8 +65,14 @@ on the repository's website served by GitHub Pages.
 Inside of a webR session, you can access the built binaries by using
 the repository's GitHub Pages URL, e.g.
 
-```
+```default
 https://gh-username.github.io/repo-name
+```
+
+Or, using the [r-universe](https://r-universe.dev/search/):
+
+```default
+https://username.r-universe.dev
 ```
 
 This can be set either using `options()` or specifying the location in each
@@ -78,19 +84,37 @@ The easiest is probably to define the location webR should search for in
 ```r
 # Run once at the start of the session
 options(
-  repos = c("https://gh-username.github.io/repo-name", 
-            "https://repo.r-wasm.org/")
+  webr_pkg_repos = c(
+    "https://gh-username.github.io/repo-name", 
+    "https://other-gh-username.github.io/another-repo", 
+    "https://username.r-universe.dev", 
+    "https://repo.r-wasm.org/"
+  )
 )
 
 # Call
 webr::install("pkgname")
 ```
 
-Otherwise, you can specify it each time:
+:::{.callout-note}
+This is different than the `repos` option one would usually set since webR only checks the [`webr_pkg_repos` key](https://github.com/r-wasm/webr/blob/010223433079d1a9ef3eb9bbf73d8eccb38e6adc/packages/webr/R/install.R#L23)
+:::
+
+Otherwise, you can specify it each time in the `webr::install()` command:
 
 ```r
-webr::install("pkgname", "https://gh-username.github.io/repo-name")
+webr::install("pkgname", c(
+    "https://gh-username.github.io/repo-name", 
+    "https://other-gh-username.github.io/another-repo", 
+    "https://username.r-universe.dev", 
+    "https://repo.r-wasm.org/"
+  )
+)
 ```
+
+:::{.callout-note}
+We do not suggest modifying at the initialization phase the [`repoUrl`](https://docs.r-wasm.org/webr/latest/api/js/interfaces/WebR.WebROptions.html#repourl) option in [`WebR({})`](https://docs.r-wasm.org/webr/latest/api/js/classes/WebR.WebR.html) as that will limit the packages to only one repository (e.g. the custom repository). 
+:::
 
 :::{.callout-important}
 Please make sure the repository's [GitHub Pages website is available over `HTTPS`](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https#enforcing-https-for-your-github-pages-site) not `HTTP` (notice the lack of an `s`).
