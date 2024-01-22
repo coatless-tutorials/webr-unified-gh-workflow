@@ -2,13 +2,13 @@
 % Please edit documentation in R/in-webr.R
 \name{in_webr}
 \alias{in_webr}
-\title{Detect if version of R is built using Web Assembly (WASM)}
+\title{Detect if the version of R is built using Web Assembly (WASM)}
 \usage{
 in_webr()
 }
 \description{
 The function checks whether the compiled version of \emph{R} shows an architecture
-that matches \code{"wasm32"}. If its the case, we're likely using webR to access
+that matches \code{"wasm32"}. If it's the case, we're likely using webR to access
 R.
 }
 \examples{

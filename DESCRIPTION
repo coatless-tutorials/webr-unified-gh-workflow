@@ -15,5 +15,5 @@ BugReports: https://github.com/coatless-tutorials/webr-github-action-wasm-binari
 Depends: R (>= 4.3.0)
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Roxygen: list(markdown = TRUE)
