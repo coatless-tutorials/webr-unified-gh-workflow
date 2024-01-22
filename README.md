@@ -26,10 +26,11 @@ This repository is part of a series of repositories exploring the topic.
 # Overview
 
 Interested in having your R package automatically be built for
-[webR](https://docs.r-wasm.org/webr/latest/) through a [GitHub
-Action](https://github.com/features/actions) alongside of a pkgdown
-website? If so, this is the repository for you! Here’s a summary of what
-you can find in the repository:
+[webR](https://docs.r-wasm.org/webr/latest/) alongside a `{pkgdown}`
+website using a [GitHub Action](https://github.com/features/actions)
+that deploys with an **artifact** instead of a `gh-pages` branch? If so,
+this is the repository for you! Here’s a summary of what you can find in
+the repository:
 
 - [`.github/workflows/webr-pkgdown-build-and-deploy.yml`](.github/workflows/webr-pkgdown-build-and-deploy.yml):
   Modified version of [`r-wasm/actions`’
