@@ -12,11 +12,12 @@
 
 Welcome to this tutorial on combining compiling an R package for
 [webR](https://docs.r-wasm.org/webr/latest/) and creating a `{pkgdown}`
-website using GitHub Actions. In this guide, you will find sample GitHub
-Action workflows designed to generate developmental webR/R WASM Package
-binaries alongside a `{pkgdown}` website. If you’re eager to streamline
-the process of building and deploying your R packages for webR while
-also creating a `{pkgdown}` website, you’ve come to the right place.
+website using GitHub Actions. In this guide, you will find a sample
+GitHub Action workflow designed to generate in one workflow both
+developmental webR/R WASM Package binaries alongside a `{pkgdown}`
+website. If you’re eager to streamline the process of building and
+deploying your R packages for webR while also creating a `{pkgdown}`
+website, you’ve come to the right place.
 
 This repository is part of a series exploring three different
 approaches:
@@ -56,7 +57,11 @@ approaches:
     the deployed content. Explore this repository to understand how this
     approach can streamline your R package deployment workflow.
 
-# Overview
+Another approach would be to use
+[r-universe.dev](https://ropensci.org/blog/2023/11/17/runiverse-wasm/)
+to automatically build and supply R WASM package binaries.
+
+## Key Contents
 
 Interested in having your R package automatically be built for
 [webR](https://docs.r-wasm.org/webr/latest/) alongside a `{pkgdown}`
@@ -174,15 +179,20 @@ uploaded onto GitHub Pages through an artifact. The artifacts are stored
 for 90 days (by default) and can be found under the workflow summary:
 
 1.  Click on the **Actions** tab for the repository
-2.  Select a completed build
-3.  Press the **Summary** option
-4.  Under “Artifacts”, click on **github-pages** to download the built
-    repository
+2.  Under “All workflows”, select a the **R WASM & {pkgdown} deploy**
+3.  Choose a completed workflow run
 
-![](man/figures/github-actions-webr-repo-github-pages-artifact.png)
+![Example showing how to select a completed
+job](man/figures/gh-select-job-for-artifact.png)
 
-**Note:** The size of the `github-pages` deployment is 9.88 MB of
-compressed space, while the size of the `rwasmrepo` is only 3.97 MB of
+4.  Under “Artifacts”, click on **github-pages** to download the built R
+    WASM repository and `{pkgdown}` website or **rwasmrepo** to download
+    just the built R WASM repository.
+
+![](man/figures/gh-download-artifact-from-job.png)
+
+**Note:** The size of the `github-pages` deployment is 13.6 MB of
+compressed space, while the size of the `rwasmrepo` is only 6.87 MB of
 the total compressed space.
 
 ## Accessing Binaries
@@ -192,12 +202,6 @@ repository’s GitHub Pages URL, e.g.
 
 ``` default
 https://gh-username.github.io/repo-name
-```
-
-Or, using the [r-universe](https://r-universe.dev/search/):
-
-``` default
-https://username.r-universe.dev
 ```
 
 This can be set either using `options()` or specifying the location in
@@ -213,7 +217,6 @@ The easiest is probably to define the location webR should search for in
 list_of_repos = c(
     "https://gh-username.github.io/repo-name", 
     "https://other-gh-username.github.io/another-repo", 
-    "https://username.r-universe.dev", 
     "https://repo.r-wasm.org/"
   )
 
