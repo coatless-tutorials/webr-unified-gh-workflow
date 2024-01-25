@@ -197,18 +197,40 @@ the total compressed space.
 
 ## Accessing Binaries
 
-Inside of a webR session, you can access the built binaries by using the
-repository’s GitHub Pages URL, e.g.
+In a webR session, access the built binaries using the repository’s
+GitHub Pages URL, for example:
 
-``` default
-https://gh-username.github.io/repo-name
+    https://gh-username.github.io/repo-name
+
+Depending on where you are using the custom R WASM package binary, you
+can register this repository in different ways:
+
+1.  Using the `repos` key inside of the `quarto-webr` extension;
+2.  Using `options()` to set values for both `repos` and
+    `webr_pkg_repos`; or,
+3.  Using the `repos` parameter in each `webr::install()` call.
+
+### `repos` Document key in `{quarto-webr}`
+
+With version v0.4.0 of the `{quarto-webr}` extension, the repository can
+be included by using the [`repos` key in the document
+header](https://quarto-webr.thecoatlessprofessor.com/qwebr-using-r-packages.html#custom-repositories):
+
+``` md
+---
+webr:
+  packages: ['pkgname']
+  repos:
+    - https://gh-username.github.io/repo-name
+filters:
+ - webr
+---
 ```
 
-This can be set either using `options()` or specifying the location in
-each `webr::install()` call.
+### Specifying repo urls with `options()`
 
-The easiest is probably to define the location webR should search for in
-`options()`.
+To define the location webR should search for in `options()`, we need to
+set both `repos` and `webr_pkg_repos`.
 
 ``` r
 ## Run once at the start of the session
@@ -217,6 +239,7 @@ The easiest is probably to define the location webR should search for in
 list_of_repos = c(
     "https://gh-username.github.io/repo-name", 
     "https://other-gh-username.github.io/another-repo", 
+    "https://username.r-universe.dev", 
     "https://repo.r-wasm.org/"
   )
 
@@ -238,8 +261,10 @@ webr::install("pkgname")
 > however, other R functions like `available.packages()` check the
 > `repos` parameter.
 
-Otherwise, you can specify it each time in the `webr::install()`
-command:
+### Specifying `repos` in `webr::install()`
+
+The `repos` parameter may also be specified in the `webr::install()`
+command each time you need to install a package from a custom location:
 
 ``` r
 webr::install("pkgname", repos = "https://gh-username.github.io/repo-name")
@@ -247,28 +272,14 @@ webr::install("pkgname", repos = "https://gh-username.github.io/repo-name")
 webr::install("pkgname", repos = list_of_repos)
 ```
 
-> [!NOTE]
->
-> We do not suggest modifying at the initialization phase the
-> [`repoUrl`](https://docs.r-wasm.org/webr/latest/api/js/interfaces/WebR.WebROptions.html#repourl)
-> option in
-> [`WebR({})`](https://docs.r-wasm.org/webr/latest/api/js/classes/WebR.WebR.html)
-> as that will limit the packages to only one repository (e.g. the
-> custom repository).
-
 > [!IMPORTANT]
 >
-> Please make sure the repository’s [GitHub Pages website is available
-> over
+> Ensure the repository’s [GitHub Pages website is available over
 > `HTTPS`](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https#enforcing-https-for-your-github-pages-site)
-> not `HTTP` (notice the lack of an `s`). You can verify this option was
-> selected by:
+> (not `HTTP`). Verify this option in the repository’s **Settings** page
+> under **Code and automation** \> **Pages** \> **Enforce HTTPS**.
 >
-> 1.  Going to the repository’s **Settings** page
-> 2.  Selecting **Pages** under **Code and automation**
-> 3.  Checking the **Enforce HTTPS** button.
->
-> Otherwise, you will receive the error message of:
+> Otherwise, you might encounter an error:
 >
 >     Warning: unable to access index for repository http://gh-username.github.io/repo-name/bin/emscripten/contrib/4.3
 
